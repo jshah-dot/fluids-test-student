@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics 2 Honors: Fluid Mechanics Assessments</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax 3 Configuration for Inline and Display Math -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @media print {
+            .no-print { display: none !important; }
+            .print-break-before { page-break-before: always; }
+            body { background: white; color: black; }
+            .card-shadow { box-shadow: none !important; border: 1px solid #ccc !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen pb-12">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <i class="fa-solid fa-flask-vial text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Physics 2 Honors — Fluids Assessment</h1>
+                    <p class="text-xs text-slate-400">Unit 4 Assessment • Real-World Context Options</p>
+                </div>
+            </div>
+
+            <!-- Tab Navigation Buttons -->
+            <div class="flex flex-wrap gap-2 bg-slate-800 p-1.5 rounded-xl text-xs font-medium">
+                <button onclick="switchTab('optionA')" id="btn-optionA" class="tab-btn px-3 py-1.5 rounded-lg transition-all bg-blue-600 text-white font-semibold">
+                    <i class="fa-solid fa-water mr-1"></i> Option A: Dynamics (Oil Spill)
+                </button>
+                <button onclick="switchTab('optionB')" id="btn-optionB" class="tab-btn px-3 py-1.5 rounded-lg transition-all text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-train mr-1"></i> Option B: Statics (Train Derailment)
+                </button>
+                <button onclick="switchTab('formulaSheet')" id="btn-formulaSheet" class="tab-btn px-3 py-1.5 rounded-lg transition-all text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-square-root-variable mr-1"></i> Reference & Formulas
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-600 text-xs px-3.5 py-2 rounded-lg transition-colors flex items-center gap-1.5 font-medium">
+                    <i class="fa-solid fa-print"></i> Print PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+
+        <!-- OPTION A: FLUID DYNAMICS ASSESSMENT -->
+        <section id="tab-optionA" class="tab-content block space-y-6">
+            
+            <!-- Assessment Header Banner -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 card-shadow">
+                <div class="flex flex-wrap justify-between items-start gap-4 mb-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mb-2">
+                            Assessment Option A • Fluid Dynamics
+                        </span>
+                        <h2 class="text-2xl font-bold text-slate-900">Charles River Oil Spill Simulation</h2>
+                        <p class="text-sm text-slate-600 mt-1">
+                            Applying Continuity, Bernoulli's Principle, Reynolds Number, and Archimedes' Buoyancy to an Environmental Disaster.
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-3xl font-extrabold text-blue-600">100</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase block">Total Points</span>
+                    </div>
+                </div>
+
+                <!-- Scenario Intro Narrative -->
+                <div class="prose max-w-none text-slate-700 text-sm leading-relaxed space-y-3">
+                    <p>
+                        At <strong>12:15 AM</strong>, a night crew at a fuel distribution terminal near Cambridge, MA notices a diesel oil release into the Charles River. Environmental engineers estimate that approximately <strong>1,000 gallons</strong> ($\approx 3.785 \text{ m}^3$) of diesel fuel has spilled into the river. 
+                    </p>
+                    <p>
+                        The Charles River in Cambridge is approximately <strong>50 meters wide</strong> ($W_1 = 50.0 \text{ m}$) with an average depth of <strong>5.0 meters</strong> ($h = 5.0 \text{ m}$). It maintains an average volumetric flow rate of <strong>300 ft³/s</strong> ($Q \approx 8.50 \text{ m}^3/\text{s}$). As the river flows downstream into Boston (a distance of $5.0 \text{ km}$ from the spill point), the channel narrows to a width of <strong>25 meters</strong> ($W_2 = 25.0 \text{ m}$), while maintaining the same average depth of $5.0 \text{ m}$. The river flows through Boston for an additional <strong>5.0 km</strong> before discharging into Massachusetts Bay.
+                    </p>
+                </div>
+
+                <!-- SVG Schematic Diagram for River Channel -->
+                <div class="mt-6 bg-slate-900 p-4 rounded-xl border border-slate-800 text-center">
+                    <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Schematic View: Charles River Geometry & Spill Velocity Profile</h4>
+                    <svg class="w-full max-w-2xl mx-auto h-48" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- River Banks -->
+                        <path d="M 20,20 L 250,20 L 350,50 L 580,50 L 580,150 L 350,150 L 250,180 L 20,180 Z" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="2"/>
+                        
+                        <!-- Water Flow Lines -->
+                        <path d="M 30,60 Q 200,60 280,75 T 570,75" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="8 4"/>
+                        <path d="M 30,100 Q 200,100 280,100 T 570,100" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="8 4"/>
+                        <path d="M 30,140 Q 200,140 280,125 T 570,125" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="8 4"/>
+                        
+                        <!-- Oil Slick Representation -->
+                        <ellipse cx="100" cy="100" rx="40" ry="25" fill="#f59e0b" fill-opacity="0.6" stroke="#d97706" stroke-width="2"/>
+                        <text x="100" y="104" font-size="10" fill="#ffffff" font-weight="bold" text-anchor="middle">Oil Slick</text>
+
+                        <!-- Labels & Dimensions -->
+                        <text x="120" y="45" font-size="11" fill="#e2e8f0" font-weight="bold">Section 1: Cambridge (Width W₁ = 50 m)</text>
+                        <text x="440" y="35" font-size="11" fill="#e2e8f0" font-weight="bold">Section 2: Boston (Width W₂ = 25 m)</text>
+
+                        <!-- Distances -->
+                        <line x1="20" y1="190" x2="280" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+                        <text x="140" y="185" font-size="10" fill="#cbd5e1" text-anchor="middle">5.0 km to Boston</text>
+
+                        <line x1="280" y1="190" x2="580" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+                        <text x="430" y="185" font-size="10" fill="#cbd5e1" text-anchor="middle">5.0 km to Mass Bay</text>
+                    </svg>
+                </div>
+
+                <!-- Parameter Data Table -->
+                <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs bg-slate-100 p-3 rounded-xl border border-slate-200">
+                    <div><span class="text-slate-500 font-semibold block">Spill Volume:</span> 1,000 gal ($\approx 3.785 \text{ m}^3$)</div>
+                    <div><span class="text-slate-500 font-semibold block">Diesel Density ($\rho_{\text{oil}}$):</span> $850 \text{ kg/m}^3$</div>
+                    <div><span class="text-slate-500 font-semibold block">Water Density ($\rho_{\text{water}}$):</span> $1,000 \text{ kg/m}^3$</div>
+                    <div><span class="text-slate-500 font-semibold block">Water Viscosity ($\mu$):</span> $1.0 \times 10^{-3} \text{ Pa}\cdot\text{s}$</div>
+                    <div><span class="text-slate-500 font-semibold block">Volumetric Flow ($Q$):</span> $8.50 \text{ m}^3/\text{s}$ ($300 \text{ ft}^3/\text{s}$)</div>
+                    <div><span class="text-slate-500 font-semibold block">River Depth ($h$):</span> $5.0 \text{ m}$ (constant)</div>
+                    <div><span class="text-slate-500 font-semibold block">Width 1 (Cambridge):</span> $50.0 \text{ m}$</div>
+                    <div><span class="text-slate-500 font-semibold block">Width 2 (Boston):</span> $25.0 \text{ m}$</div>
+                </div>
+            </div>
+
+            <!-- Questions List -->
+            <div class="space-y-4">
+                
+                <!-- Q1 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-blue-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">1</span>
+                            Flow Velocity Calculations
+                        </h3>
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">15 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700">
+                        Calculate the average flow velocity of the Charles River in both the <strong>Cambridge section</strong> ($v_1$) and the narrowed <strong>Boston section</strong> ($v_2$). Show all unit conversions and formulas used.
+                    </p>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-blue-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">2</span>
+                            Continuity vs. Bernoulli Analysis
+                        </h3>
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">10 Points</span>
+                    </div>
+                    <div class="text-sm text-slate-700 space-y-3">
+                        <p><strong>(a)</strong> Explain, using the <em>Equation of Continuity</em> ($A_1 v_1 = A_2 v_2$), why the river speed increases as it flows into the Boston channel. (5 pts)</p>
+                        <p><strong>(b)</strong> Explain, using <em>Bernoulli’s Principle</em> ($P + \frac{1}{2}\rho v^2 + \rho g h = \text{constant}$), how the internal dynamic hydrostatic pressure of the fluid changes in the narrowed Boston section as a result of this velocity change. (5 pts)</p>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-blue-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">3</span>
+                            Reynolds Number & Dispersion Behavior
+                        </h3>
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">20 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700">
+                        Calculate the <strong>Reynolds Number</strong> ($Re = \frac{\rho v D}{\mu}$) for both river sections using the density and viscosity of water, treating the river depth ($D = 5.0 \text{ m}$) as the characteristic hydraulic dimension. Based on your calculated Reynolds numbers, characterize the nature of the fluid flow (laminar vs. turbulent) and discuss how this will impact the mechanical dispersion and mixing of the oil slick.
+                    </p>
+                </div>
+
+                <!-- Q4 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-blue-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">4</span>
+                            Buoyancy & Archimedes' Principle
+                        </h3>
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">10 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700">
+                        Using principles of buoyancy and Archimedes’ Principle, explain why diesel oil remains floating on top of the water rather than sinking. Furthermore, calculate the exact <strong>percentage (%) of the floating oil layer’s thickness</strong> that sits submerged below the water line based on the densities of diesel ($850 \text{ kg/m}^3$) and fresh water ($1,000 \text{ kg/m}^3$).
+                    </p>
+                </div>
+
+                <!-- Q5 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-blue-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">5</span>
+                            Emergency Response Travel Time
+                        </h3>
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">15 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700">
+                        Calculate the total time required for the leading edge of the oil spill to travel from the spill site in Cambridge through Boston into Massachusetts Bay ($5.0 \text{ km}$ in Section 1 at velocity $v_1$, plus $5.0 \text{ km}$ in Section 2 at velocity $v_2$). Express your final answer in <strong>hours</strong>. How much response time does the emergency containment team have before the oil reaches the bay?
+                    </p>
+                </div>
+
+                <!-- Q6 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-blue-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">6</span>
+                            Environmental & Mitigation Synthesis Essay
+                        </h3>
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">30 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-3">
+                        Write a short, structured synthesis essay (~200–250 words) addressing the following key prompt components:
+                    </p>
+                    <ul class="list-disc list-inside text-xs text-slate-600 space-y-1">
+                        <li><strong>Environmental Impact (10 pts):</strong> Effects on aquatic ecosystems, avian wildlife, and dissolved oxygen levels.</li>
+                        <li><strong>Social & Economic Impact (10 pts):</strong> Consequences for local drinking water intakes, recreational river activities, and public health.</li>
+                        <li><strong>Physical Containment & Cleanup (10 pts):</strong> Physical containment techniques (e.g., floating booms, skimmers, sorbent pads) and chemical dispersants.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- OPTION B: FLUID STATICS ASSESSMENT -->
+        <section id="tab-optionB" class="tab-content hidden space-y-6">
+            
+            <!-- Assessment Header Banner -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 card-shadow">
+                <div class="flex flex-wrap justify-between items-start gap-4 mb-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 mb-2">
+                            Assessment Option B • Fluid Statics
+                        </span>
+                        <h2 class="text-2xl font-bold text-slate-900">UK Railway Subsidence & Groundwater Dynamics</h2>
+                        <p class="text-sm text-slate-600 mt-1">
+                            Analyzing Hydrostatic Pressure, Soil Moisture Deficit, Archimedes' Buoyancy Loss, and Pascal's Principle.
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-3xl font-extrabold text-indigo-600">100</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase block">Total Points</span>
+                    </div>
+                </div>
+
+                <!-- Scenario Intro Narrative -->
+                <div class="prose max-w-none text-slate-700 text-sm leading-relaxed space-y-3">
+                    <p>
+                        During the prolonged summer heatwave and drought in southern England, passenger trains near Lewes (East Sussex) experienced track misalignment and derailments. Geotechnical investigations revealed that intense soil moisture deficit caused groundwater levels within soft clay and peat embankments to plummet.
+                    </p>
+                    <p>
+                        In normal conditions, saturated embankment soil provides significant upward hydrostatic pore pressure and Archimedes’ buoyant force ($\rho_{\text{water}} g V_{\text{sub}}$) that helps support heavy concrete sub-ballast foundation structures. When severe drought lowers the water table, this buoyant lift is lost, transferring immense additional effective weight onto dry, shrinking subsoil beds, triggering structural settlement and track shifting.
+                    </p>
+                </div>
+
+                <!-- SVG Schematic Diagram for Railway Embankment -->
+                <div class="mt-6 bg-slate-900 p-4 rounded-xl border border-slate-800 text-center">
+                    <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Schematic Cross-Section: Railway Trackbed Groundwater Table Shift</h4>
+                    <svg class="w-full max-w-2xl mx-auto h-52" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Embankment Soil -->
+                        <polygon points="50,200 150,60 450,60 550,200" fill="#78350f" fill-opacity="0.3" stroke="#92400e" stroke-width="2"/>
+                        
+                        <!-- Concrete Foundation Block -->
+                        <rect x="220" y="50" width="160" height="60" fill="#94a3b8" stroke="#475569" stroke-width="2" rx="2"/>
+                        <text x="300" y="85" font-size="11" fill="#0f172a" font-weight="bold" text-anchor="middle">Concrete Sub-Ballast Block</text>
+
+                        <!-- Rails and Ties -->
+                        <rect x="240" y="35" width="120" height="15" fill="#475569"/>
+                        <rect x="260" y="20" width="10" height="15" fill="#cbd5e1"/>
+                        <rect x="330" y="20" width="10" height="15" fill="#cbd5e1"/>
+
+                        <!-- Normal Water Table Line (Blue) -->
+                        <line x1="80" y1="50" x2="520" y2="50" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="6 3"/>
+                        <text x="120" y="42" font-size="10" fill="#0284c7" font-weight="bold">Normal Water Table (Fully Submerged)</text>
+
+                        <!-- Drought Water Table Line (Red/Amber) -->
+                        <line x1="120" y1="98" x2="480" y2="98" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="6 3"/>
+                        <text x="140" y="112" font-size="10" fill="#dc2626" font-weight="bold">Drought Water Table (0.80 m Drop)</text>
+
+                        <!-- Force Vectors -->
+                        <line x1="300" y1="110" x2="300" y2="150" stroke="#ef4444" stroke-width="3"/>
+                        <text x="315" y="135" font-size="10" fill="#ef4444" font-weight="bold">Increased Load on Soil!</text>
+                    </svg>
+                </div>
+
+                <!-- Parameter Data Table -->
+                <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs bg-slate-100 p-3 rounded-xl border border-slate-200">
+                    <div><span class="text-slate-500 font-semibold block">Water Density ($\rho_{\text{water}}$):</span> $1,000 \text{ kg/m}^3$</div>
+                    <div><span class="text-slate-500 font-semibold block">Concrete Density ($\rho_{\text{concrete}}$):</span> $2,400 \text{ kg/m}^3$</div>
+                    <div><span class="text-slate-500 font-semibold block">Slurry Density ($\rho_{\text{slurry}}$):</span> $1,200 \text{ kg/m}^3$</div>
+                    <div><span class="text-slate-500 font-semibold block">Gravity ($g$):</span> $9.80 \text{ m/s}^2$</div>
+                    <div><span class="text-slate-500 font-semibold block">Atmospheric Pressure ($P_0$):</span> $1.013 \times 10^5 \text{ Pa}$</div>
+                    <div><span class="text-slate-500 font-semibold block">Block Length ($L$):</span> $10.0 \text{ m}$</div>
+                    <div><span class="text-slate-500 font-semibold block">Block Width ($W$):</span> $3.00 \text{ m}$</div>
+                    <div><span class="text-slate-500 font-semibold block">Block Height ($H$):</span> $1.00 \text{ m}$</div>
+                </div>
+            </div>
+
+            <!-- Questions List -->
+            <div class="space-y-4">
+                
+                <!-- Q1 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">1</span>
+                            Hydrostatic Groundwater Pressure
+                        </h3>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200">15 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-3">
+                        A geotechnical pressure monitoring sensor sits embedded $2.50 \text{ m}$ below the normal groundwater table within the saturated embankment foundation.
+                    </p>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p><strong>(a)</strong> Calculate the hydrostatic <strong>gauge pressure</strong> ($P_{\text{gauge}}$) exerted by the groundwater at this depth. (8 pts)</p>
+                        <p><strong>(b)</strong> Calculate the <strong>absolute pressure</strong> ($P_{\text{abs}}$) at this sensor depth in both Pascals ($\text{Pa}$) and kilopascals ($\text{kPa}$). (7 pts)</p>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">2</span>
+                            Normal Conditions: Submerged Buoyancy Lift
+                        </h3>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200">15 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-3">
+                        Prior to the drought, the groundwater table aligns with the top of the concrete sub-ballast foundation block ($10.0 \text{ m} \times 3.00 \text{ m} \times 1.00 \text{ m}$), fully submerging its $30.0 \text{ m}^3$ volume.
+                    </p>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p><strong>(a)</strong> Calculate the total gravitational weight force ($W$) of the concrete block in Newtons. (5 pts)</p>
+                        <p><strong>(b)</strong> Using Archimedes’ Principle, calculate the upward buoyant force ($F_B$) exerted by the surrounding groundwater. (5 pts)</p>
+                        <p><strong>(c)</strong> Calculate the net downward force ($F_{\text{net}}$) that the underlying soil bed must support under these normal conditions. (5 pts)</p>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">3</span>
+                            Drought Impact: Loss of Buoyancy & Load Increase
+                        </h3>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200">20 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-3">
+                        During the peak of the drought, the groundwater level drops by <strong>0.80 meters</strong>, leaving only <strong>0.20 meters</strong> of the foundation block’s height submerged.
+                    </p>
+                    <div class="text-sm text-slate-700 space-y-2">
+                        <p><strong>(a)</strong> Calculate the new reduced buoyant force ($F_{B, \text{drought}}$) acting on the partially submerged block. (6 pts)</p>
+                        <p><strong>(b)</strong> Calculate the new net downward force ($F_{\text{net}, \text{drought}}$) exerted onto the drying subsoil bed. (6 pts)</p>
+                        <p><strong>(c)</strong> Calculate the <strong>percentage increase (%) in downward load</strong> borne by the soil compared to normal conditions. Explain how this sudden load transfer causes soil compaction and track displacement. (8 pts)</p>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">4</span>
+                            Hydraulic Track Realignment (Pascal's Principle)
+                        </h3>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200">10 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700">
+                        Railway repair crews utilize hydraulic jacks operating under <strong>Pascal’s Principle</strong> to lift and re-level settled trackbeds. The hydraulic system consists of a small input cylinder with cross-sectional area $A_1 = 0.0050 \text{ m}^2$ connected to a large lifting cylinder with area $A_2 = 0.500 \text{ m}^2$. If an input force of $F_1 = 1,500 \text{ N}$ is applied to the small piston, calculate the maximum output lifting force ($F_2$) transmitted to the track bed.
+                    </p>
+                </div>
+
+                <!-- Q5 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">5</span>
+                            Apparent Weight in Clay Slurry
+                        </h3>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200">10 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700">
+                        During repair operations, a reinforced concrete sleeper (tie) with a mass of $300 \text{ kg}$ and volume of $0.150 \text{ m}^3$ drops into an embankment drainage ditch filled with dense clay mud slurry ($\rho_{\text{slurry}} = 1,200 \text{ kg/m}^3$). Calculate the <strong>apparent weight</strong> ($W_{\text{app}}$) of the concrete sleeper while fully submerged in the slurry.
+                    </p>
+                </div>
+
+                <!-- Q6 -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 card-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white text-xs w-6 h-6 rounded-full inline-flex items-center justify-center font-bold">6</span>
+                            Geotechnical Infrastructure Synthesis Essay
+                        </h3>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-indigo-200">30 Points</span>
+                    </div>
+                    <p class="text-sm text-slate-700 mb-3">
+                        Write a short, structured synthesis essay (~200–250 words) analyzing the climate resilience of transport infrastructure built on soft clay soils:
+                    </p>
+                    <ul class="list-disc list-inside text-xs text-slate-600 space-y-1">
+                        <li><strong>Physical Mechanics (15 pts):</strong> Analyze how extreme drought-to-deluge weather cycles destabilize railway trackbeds through changes in groundwater pore pressure, loss of buoyant lift, and soil volumetric shrinkage.</li>
+                        <li><strong>Geotechnical Solutions (15 pts):</strong> Propose and evaluate two civil engineering mitigation strategies (e.g., deep pile foundations, continuous soil moisture monitoring networks, controlled subgrade irrigation) to prevent future derailments.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FORMULA SHEET TAB -->
+        <section id="tab-formulaSheet" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 card-shadow">
+                <div class="flex items-center space-x-3 mb-6 border-b border-slate-100 pb-4">
+                    <div class="bg-slate-900 text-white p-2.5 rounded-xl">
+                        <i class="fa-solid fa-book-bookmark text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Physics 2 Honors — Fluid Mechanics Formula Sheet</h2>
+                        <p class="text-xs text-slate-500">Official Reference Equations & Physical Constants</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 text-sm">
+                    <!-- Statics Formulas -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-base border-b border-slate-200 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-compress text-indigo-600"></i> Fluid Statics
+                        </h3>
+                        <div class="space-y-2 font-mono text-xs text-slate-800">
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Density:</span> <strong>$\rho = \frac{m}{V}$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Fluid Pressure:</span> <strong>$P = \frac{F}{A}$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Gauge Hydrostatic Pressure:</span> <strong>$P_{\text{gauge}} = \rho g h$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Absolute Hydrostatic Pressure:</span> <strong>$P_{\text{abs}} = P_0 + \rho g h$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Archimedes' Buoyant Force:</span> <strong>$F_B = \rho_{\text{fluid}} V_{\text{sub}} g$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Pascal's Principle:</span> <strong>$\frac{F_1}{A_1} = \frac{F_2}{A_2}$</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Dynamics Formulas -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-base border-b border-slate-200 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-wind text-blue-600"></i> Fluid Dynamics
+                        </h3>
+                        <div class="space-y-2 font-mono text-xs text-slate-800">
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Volumetric Flow Rate:</span> <strong>$Q = A v = \frac{\Delta V}{\Delta t}$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Equation of Continuity:</span> <strong>$A_1 v_1 = A_2 v_2$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Bernoulli's Equation:</span> <strong>$P_1 + \frac{1}{2}\rho v_1^2 + \rho g h_1 = \text{constant}$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Reynolds Number:</span> <strong>$Re = \frac{\rho v D}{\mu}$</strong></p>
+                            <p class="flex justify-between bg-white p-2 rounded border"><span>Fraction Submerged (Floating):</span> <strong>$\text{Fraction} = \frac{\rho_{\text{object}}}{\rho_{\text{fluid}}}$</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Physical Constants Table -->
+                <div class="mt-6 bg-blue-50/60 p-4 rounded-xl border border-blue-200">
+                    <h4 class="font-bold text-blue-900 text-xs uppercase tracking-wider mb-2">Standard Physical Constants</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs text-blue-950">
+                        <div><strong>$g$:</strong> $9.80 \text{ m/s}^2$</div>
+                        <div><strong>$P_0$:</strong> $1.013 \times 10^5 \text{ Pa}$</div>
+                        <div><strong>$\rho_{\text{water}}$:</strong> $1,000 \text{ kg/m}^3$</div>
+                        <div><strong>$\mu_{\text{water}}$:</strong> $1.0 \times 10^{-3} \text{ Pa}\cdot\text{s}$</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
+
+            // Reset tab button active styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'bg-indigo-600', 'text-white', 'font-semibold');
+                btn.classList.add('text-slate-300');
+            });
+
+            // Show target tab
+            const target = document.getElementById('tab-' + tabId);
+            target.classList.remove('hidden');
+            target.classList.add('block');
+
+            // Style active button
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (tabId === 'optionB') {
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'font-semibold');
+            } else {
+                activeBtn.classList.add('bg-blue-600', 'text-white', 'font-semibold');
+            }
+
+            // Trigger MathJax re-render for newly visible tab content
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            }
+        }
+    </script>
+</body>
+</html>
